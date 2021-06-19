@@ -21,6 +21,11 @@ app.use(productoRoute);
 app.use(usuarioRoute);
 app.use(pagoRoute);
 
+// const sslserver = https.createServer({
+// // key:fs.readFileSync(path.join(__dirname,'../etc/ssl/certs','server.key')),
+// cert:fs.readFileSync(path.join(__dirname,'../etc/ssl/certs','ca-certificates.crt'))
+// },app)
+
 app.listen(4000, ()=>{
     console.log('Server on port 4000')
 })

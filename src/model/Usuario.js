@@ -4,7 +4,6 @@ const usuarioSchema = new Schema({
     nombre:{
         type: String,
     }, 
-        
     apellido:{
         type: String
     },
@@ -18,17 +17,21 @@ const usuarioSchema = new Schema({
         type: String,
         unique: true
     },
-    pais: {
+    nivel_estudio:{
         type: String,
     },
-    orden: [{
-        ref: "orden",
-        type: Schema.Types.ObjectID
-    }],
-    direccion: [{
-        ref: "direccion",
-        type: Schema.Types.ObjectID
-    }],
+    edad:{
+        type: Number,
+    },
+    direccion:{
+        type: String,
+    },
+    contacto:{
+        type: String,
+    },
+    imagen: {
+        type: String,
+    }
 },{
     timestamps:true,
     versionKey:false
