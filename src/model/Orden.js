@@ -1,10 +1,9 @@
 const { Schema, model} = require('mongoose')
 var usuario = model('usuario');
 const ordenSchema = new Schema({
-    productos: String,
-    cantidad: Number,
-    precio: Number,
-    stado: String,
+    productos: [],
+    id_pago: String,
+    id_usuario:String,
     usuario:{ type: Schema.ObjectId, ref: "usuario" },
     
 },{
