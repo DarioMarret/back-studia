@@ -6,8 +6,9 @@ const captuarPago = async(req, res)=>{
     const { id, amount, productos, id_usuario } = req.body;
     try {
       const payment = await stripe.paymentIntents.create({
+        Authorization: "sk_test_51HzCfKIUXK91B6BdHCDAQmSYxZ9LoWe8xemQSAddv4wwBcSNzyIOzUjmQQnZY2PzrcRwbvdIWmbqg8t6K2IZxzPo004iTFhQY8",
         amount,
-        currency: "USD",
+        currency: "MXN",
         description: "STUDIA",
         payment_method: id,
         confirm: true, //confirm the payment at the same time
