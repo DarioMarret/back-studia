@@ -13,7 +13,10 @@ const createUsuario = async (req, res) => {
   }
 };
 //listart todo los usuario
-const getUsuario = (req, res) => {};
+const getUsuario = async(req, res) => {
+  const user = await Usuario.find({});
+  res.json(user);
+};
 // listar usuario por ById o login
 const getUsuarioById = async (req, res) => {
   if (req.params.id) {
