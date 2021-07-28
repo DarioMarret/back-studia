@@ -1,12 +1,12 @@
+require('dotenv').config()
 const Stripe = require("stripe");
-const stripe = new Stripe("sk_test_51HzCfKIUXK91B6BdHCDAQmSYxZ9LoWe8xemQSAddv4wwBcSNzyIOzUjmQQnZY2PzrcRwbvdIWmbqg8t6K2IZxzPo004iTFhQY8");
+const stripe = new Stripe(process.env.CLAVE_SECRETA);
 const Orden = require('../model/Orden');
 // "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"
 const captuarPago = async(req, res)=>{
     const { id, amount, productos, id_usuario } = req.body;
     try {
       const payment = await stripe.paymentIntents.create({
-        Authorization: "sk_test_51HzCfKIUXK91B6BdHCDAQmSYxZ9LoWe8xemQSAddv4wwBcSNzyIOzUjmQQnZY2PzrcRwbvdIWmbqg8t6K2IZxzPo004iTFhQY8",
         amount,
         currency: "MXN",
         description: "STUDIA",

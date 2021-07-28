@@ -1,9 +1,13 @@
 const router = require('express').Router()
 
-const VerificarToken  = require('../controller/token/verificacion');
-const {createProducto, getProducto} = require('../controller/producto.controller')
+const upload = require('../libs/storage')
 
-router.post('/producto', createProducto)
-router.get('/producto/lista', VerificarToken, getProducto)
+const VerificarToken  = require('../controller/token/verificacion');
+const {createProducto, getProducto, deleteProductoById, updateProductoByid} = require('../controller/producto.controller')
+
+router.post('/producto',upload.single("imagen"), createProducto)
+router.get('/producto/lista', getProducto)
+router.delete('/producto/eliminar/:_id', deleteProductoById)
+router.put("/producto/:_id", upload.single("imagen"), updateProductoByid)
 
 module.exports = router

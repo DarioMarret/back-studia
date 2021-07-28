@@ -1,4 +1,5 @@
 const Usuario = require("../model/Usuario");
+const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken");
 const key = require("../constante/key");
 
@@ -6,6 +7,8 @@ const key = require("../constante/key");
 const createUsuario = async (req, res) => {
   try {
     const n_usuario = new Usuario(req.body);
+    let passHash = await bcrypt.hash(n_usuario.password, 8)
+    n_usuario.password = passHash;
     const resultado = await n_usuario.save();
     res.status(201).json(resultado);
   } catch (error) {
@@ -22,10 +25,12 @@ const getUsuarioById = async (req, res) => {
   if (req.params.id) {
     console.log(req.params.id);
   } else {
-    const user = await Usuario.find(req.body);
+    const user = await Usuario.find({"email":req.body.email});
     if (user.length > 0) {
-      const token = jwt.sign({ user }, key.token_secret);
-      res.json({ token });
+      await bcrypt.compare(req.body.password, user.password, ()=>{
+        const token = jwt.sign({ user }, key.token_secret);
+        res.json({ token });
+      })
     } else {
       res.status(404).json({
         message: "usuario no registrado",
@@ -42,7 +47,10 @@ const updateUsuario = async (req, res) => {
     const result = await Usuario.findByIdAndUpdate(req.params, req.body)
     console.log(result)
 }
-const deleteUsuarioById = (req, res) => {};
+const deleteUsuarioById = async(req, res) => {
+  const result = await Usuario.findByIdAndDelete(req.params.id)
+  res.status(200).json(result)
+};
 module.exports = {
   createUsuario,
   getUsuario,

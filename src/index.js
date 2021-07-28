@@ -1,4 +1,5 @@
 'use strict'
+require("dotenv").config();
 const express = require('express');
 const path = require('path')
 
@@ -10,6 +11,7 @@ require('./DB/config');
 const productoRoute = require('./routes/producto.routes');
 const usuarioRoute = require('./routes/usuario.routes');
 const pagoRoute = require('./routes/pagos.routes');
+const categoriaRoute = require('./routes/categoria.routes');
 
 app.use(express.urlencoded({ extended: true }))
 app.use(cors()); 
@@ -20,6 +22,7 @@ app.use(express.json())
 app.use(productoRoute);
 app.use(usuarioRoute);
 app.use(pagoRoute);
+app.use(categoriaRoute);
 
 // const sslserver = https.createServer({
 // // key:fs.readFileSync(path.join(__dirname,'../etc/ssl/certs','server.key')),
@@ -27,5 +30,6 @@ app.use(pagoRoute);
 // },app)
 
 app.listen(4000, ()=>{
+    // console.log(`"${process.env.CLAVE_SECRETA}"`)
     console.log('Server on port 4000')
 })
